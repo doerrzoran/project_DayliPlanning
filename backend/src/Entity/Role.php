@@ -8,6 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: RoleRepository::class)]
 class Role
 {
+    public const ROLE_EMPLOYE = 'ROLE_EMPLOYE';
+    public const ROLE_ADMIN = 'ROLE_ADMIN';
+    public const ROLE_CADRE = 'ROLE_CADRE';
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
