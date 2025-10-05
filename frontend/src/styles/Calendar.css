@@ -1,0 +1,462 @@
+/* ========================================
+   CALENDAR.CSS - Styles pour tous les composants
+   ======================================== */
+
+/* ==================== GENERAL ==================== */
+.calendar-container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==================== WEEKLY PLANNING ==================== */
+.calendar-header {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.calendar-header button {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.calendar-header button:hover {
+  background: #f3f6fb;
+}
+
+.calendar-header input[type="date"] {
+  margin: 0 12px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.calendar-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.calendar-table thead th {
+  padding: 8px 6px;
+  text-align: center;
+  background: #f6f9ff;
+}
+
+.calendar-table thead th .day-name {
+  font-weight: 700;
+}
+
+.calendar-table thead th .day-date {
+  font-size: 12px;
+}
+
+.calendar-table tbody td.time-cell {
+  padding: 6px 4px;
+  font-weight: 600;
+  background-color: #f0f0f0;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.calendar-table tbody td.event-cell {
+  height: 32px;
+  padding: 6px;
+  vertical-align: top;
+  background-color: white;
+  border: 1px solid #e6e6e6;
+  position: relative;
+}
+
+.event-cell-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 2px 4px;
+}
+
+.event-badge-weekly {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 6px;
+  border-radius: 6px;
+  color: white;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.event-badge-weekly .event-time {
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.event-badge-weekly .event-title {
+  opacity: 0.95;
+}
+
+.event-remainder {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.08);
+  font-size: 11px;
+  color: #222;
+  display: inline-block;
+}
+
+/* ==================== MONTHLY PLANNING ==================== */
+.monthly-header {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
+
+.monthly-header button {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.monthly-header button:hover {
+  background: #f3f6fb;
+}
+
+.monthly-header input[type="month"],
+.monthly-header input[type="date"] {
+  margin: 0 12px;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.monthly-table {
+  border: 1px solid #ddd;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.monthly-table th {
+  padding: 8px;
+  background: #f6f9ff;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.monthly-table th.week-label {
+  width: 80px;
+}
+
+.monthly-table td.day-label {
+  padding: 6px;
+  background-color: #f5f5f5;
+  font-weight: 600;
+  text-align: center;
+  border: 1px solid #ddd;
+}
+
+.monthly-table td.day-cell {
+  min-width: 120px;
+  vertical-align: top;
+  height: 80px;
+  padding: 6px;
+  border-left: 1px solid #eee;
+  border: 1px solid #ddd;
+}
+
+.monthly-table td.day-cell.has-events {
+  background-color: #ffd2a6;
+}
+
+.monthly-table td.day-cell.in-month {
+  background-color: white;
+  color: inherit;
+}
+
+.monthly-table td.day-cell.out-of-month {
+  background-color: #fafafa;
+  color: #9a9a9a;
+}
+
+.day-number {
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+
+.day-number strong {
+  font-weight: 700;
+}
+
+.day-events {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 60px;
+  overflow-y: auto;
+}
+
+.event-badge-monthly {
+  padding: 4px 6px;
+  border-radius: 4px;
+  background-color: #ff6b6b;
+  color: white;
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.event-badge-monthly .event-time-monthly {
+  font-weight: bold;
+  font-size: 11px;
+}
+
+/* ==================== YEARLY PLANNING ==================== */
+.yearly-container {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: #fafafa;
+  padding: 12px;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+}
+
+.yearly-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 6px;
+  margin-bottom: 12px;
+}
+
+.yearly-header button {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 6px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.yearly-header button:hover {
+  background: #f3f6fb;
+}
+
+.yearly-header input[type="number"] {
+  width: 90px;
+  text-align: center;
+  padding: 6px;
+  border-radius: 6px;
+  border: 1px solid #d0d7de;
+  font-weight: 600;
+}
+
+.yearly-grid {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  width: 100%;
+  overflow-x: auto;
+  align-items: flex-start;
+}
+
+.month-column {
+  flex: 0 0 calc(100% / 12);
+  box-sizing: border-box;
+  border: 1px solid #e6e6e6;
+  border-left: none;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  align-items: stretch;
+}
+
+.month-column:first-child {
+  border-left: 1px solid #e6e6e6;
+}
+
+.month-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.month-header strong {
+  text-transform: capitalize;
+  font-size: 13px;
+}
+
+.month-header small {
+  color: #666;
+}
+
+.days-column {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+}
+
+.day-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background-color: transparent;
+  min-height: 34px;
+}
+
+.day-row.has-events {
+  background-color: #fff8f2;
+}
+
+.day-row-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.day-row-header .day-number-yearly {
+  font-size: 13px;
+}
+
+.event-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.event-badge-yearly {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: #ff6b6b;
+  color: white;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.event-badge-yearly .event-time-yearly {
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.event-badge-yearly .event-end-yearly {
+  font-size: 11px;
+}
+
+.event-badge-yearly .event-title-yearly {
+  margin-left: 6px;
+  opacity: 0.95;
+}
+
+/* ==================== CALENDAR MAIN COMPONENT ==================== */
+.calendar-main {
+  padding: 12px;
+}
+
+.calendar-main h1 {
+  margin-bottom: 20px;
+}
+
+.calendar-main h2 {
+  margin-bottom: 16px;
+}
+
+.view-toggle {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 8px;
+}
+
+.view-toggle button {
+  background: transparent;
+  border: 1px solid #ddd;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.view-toggle button:hover {
+  background: #f3f6fb;
+}
+
+.view-toggle button.active {
+  background: #4a90e2;
+  color: white;
+  border-color: #4a90e2;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 1100px) {
+  .month-column {
+    min-width: 140px;
+    padding: 6px;
+  }
+  
+  .event-badge-yearly {
+    font-size: 11px;
+    padding: 4px 6px;
+  }
+  
+  .day-row .day-number-yearly {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 900px) {
+  .yearly-grid {
+    gap: 8px;
+  }
+  
+  .month-column {
+    min-width: 120px;
+    flex: 0 0 120px;
+  }
+}
+
+/* ==================== HOVER EFFECTS ==================== */
+.day-row:hover {
+  background: #fffefa;
+}
+
+.calendar-table tbody td.event-cell:hover {
+  background-color: #f9f9f9;
+}
+
+/* permet l'affichage du titre sur plusieurs lignes dans les badges mensuels */
+.event-badge-monthly {
+  white-space: normal;
+  overflow: visible;
+}
+
+/* si tu as une règle globale qui force nowrap sur .event-badge-monthly,
+   assure-toi de l'overrider avec celle-ci */
+.event-badge-monthly .event-badge-title {
+  white-space: normal;
+  overflow: visible;
+}
