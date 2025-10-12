@@ -8,11 +8,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
 #[ApiResource]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -72,6 +75,8 @@ class User
         $this->absences = new ArrayCollection();
     }
 
+    // Getters et setters classiques
+    
 
     public function getId(): ?int
     {
@@ -86,7 +91,6 @@ class User
     public function setName(string $name): static
     {
         $this->name = $name;
-
         return $this;
     }
 
@@ -98,7 +102,6 @@ class User
     public function setFirstname(string $firstname): static
     {
         $this->firstname = $firstname;
-
         return $this;
     }
 
@@ -110,7 +113,6 @@ class User
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
@@ -122,7 +124,6 @@ class User
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
     }
 
@@ -134,7 +135,6 @@ class User
     public function setContractWeeklyHours(?int $contractWeeklyHours): static
     {
         $this->contractWeeklyHours = $contractWeeklyHours;
-
         return $this;
     }
 
@@ -146,7 +146,6 @@ class User
     public function setContratStart(?\DateTime $contratStart): static
     {
         $this->contratStart = $contratStart;
-
         return $this;
     }
 
@@ -158,7 +157,6 @@ class User
     public function setContractEnd(?\DateTime $contractEnd): static
     {
         $this->contractEnd = $contractEnd;
-
         return $this;
     }
 
@@ -170,7 +168,6 @@ class User
     public function setRole(?Role $role): static
     {
         $this->role = $role;
-
         return $this;
     }
 
@@ -182,7 +179,6 @@ class User
     public function setManager(?self $manager): static
     {
         $this->manager = $manager;
-
         return $this;
     }
 
@@ -199,14 +195,12 @@ class User
         if (!$this->contractHalfDays->contains($contractHalfDay)) {
             $this->contractHalfDays->add($contractHalfDay);
         }
-
         return $this;
     }
 
     public function removeContractHalfDay(HalfDay $contractHalfDay): static
     {
         $this->contractHalfDays->removeElement($contractHalfDay);
-
         return $this;
     }
 
@@ -224,19 +218,16 @@ class User
             $this->presences->add($presence);
             $presence->setEmploye($this);
         }
-
         return $this;
     }
 
     public function removePresence(Presence $presence): static
     {
         if ($this->presences->removeElement($presence)) {
-            // set the owning side to null (unless already changed)
             if ($presence->getEmploye() === $this) {
                 $presence->setEmploye(null);
             }
         }
-
         return $this;
     }
 
@@ -254,20 +245,43 @@ class User
             $this->absences->add($absence);
             $absence->setEmploye($this);
         }
-
         return $this;
     }
 
     public function removeAbsence(Absence $absence): static
     {
         if ($this->absences->removeElement($absence)) {
-            // set the owning side to null (unless already changed)
             if ($absence->getEmploye() === $this) {
                 $absence->setEmploye(null);
             }
         }
-
         return $this;
     }
 
+    // Implémentation des méthodes UserInterface
+
+    /**
+     * Retourne l’identifiant unique (ici l’email)
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * Retourne les rôles de l'utilisateur sous forme de tableau de chaînes.
+     * Adapté selon ta classe Role (ici on récupère le label ou un tableau vide).
+     */
+    public function getRoles(): array
+    {
+        return $this->role ? [$this->role->getLabel()] : [];
+    }
+
+    /**
+     * eraseCredentials doit vider les données sensibles temporaires si nécessaire.
+     */
+    public function eraseCredentials(): void
+    {
+        // Pas d'informations sensibles temporaires à nettoyer ici
+    }
 }
