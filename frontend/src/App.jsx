@@ -3,13 +3,14 @@ import {  useMemo } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import TestApi from './component/TestApi'
 import Calendar from './component/calendar'; 
+import Login from './component/login';
 
 function App() {
   const router = useMemo(() => {
     return createBrowserRouter([
       {
-        path: '/test',
-        element: <TestApi></TestApi>
+        path: '/login',
+        element: <Login/>
       },
       {
         path: '/calendar',

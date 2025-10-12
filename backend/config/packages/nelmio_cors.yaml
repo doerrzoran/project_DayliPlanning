@@ -1,10 +1,11 @@
 nelmio_cors:
     defaults:
-        origin_regex: true
+        origin_regex: true                # on autorise des patterns regex utiles en dev
         allow_origin: ['%env(CORS_ALLOW_ORIGIN)%']
+        allow_credentials: true           # true si tu utilises cookies / auth
         allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
-        allow_headers: ['Content-Type', 'Authorization']
-        expose_headers: ['Link']
+        allow_headers: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept']
+        expose_headers: ['Link', 'Authorization']
         max_age: 3600
     paths:
-        '^/': null
+        '^/': ~ 

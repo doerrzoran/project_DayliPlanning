@@ -4,7 +4,6 @@
 /backend/.env.dev
 /backend/.env.local
 /backend/.env.local.php
-/backend/.env.test
 /backend/.env.test.local
 /backend/.env.*.local
 /backend/config/secrets/prod/prod.decrypt.private.php
@@ -13,4 +12,6 @@
 /backend/vendor/
 /backend/phpunit.xml
 /backend/.phpunit.cache/
+/backend/config/jwt/private.pem
+/backend/config/jwt/public.pem
 ###< symfony/framework-bundle ###

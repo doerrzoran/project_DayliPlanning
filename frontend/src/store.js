@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 export const apiStore = create((set) => ({
-  apiUrl: 'http://127.0.0.1:8000/api',
+  apiUrl: 'https://127.0.0.1:8000/api',
   isConnected: false, // état indiquant si la connexion est établie
   statusMessage: '',  // message optionnel
 
@@ -10,4 +10,9 @@ export const apiStore = create((set) => ({
     isConnected: connected, 
     statusMessage: message 
   }),
+
+  // Méthode pour obtenir l'URL complète de récupération du token
+  getTokenUrl: () => {
+    return `${apiStore.getState().apiUrl}/login_check`;
+  }
 }));
