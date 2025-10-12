@@ -8,7 +8,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use App\Entity\User;
 use App\Entity\Role;
 
-class UserAuthTest extends ApiTestCase
+class UserTest extends ApiTestCase
 {
     private Client $client;
     private EntityManagerInterface $em;
@@ -33,7 +33,7 @@ class UserAuthTest extends ApiTestCase
      * @param string $plainPassword
      * @return string
      */
-    private function createAdminUserInDatabase(string $email = null, string $plainPassword = 'admin123'): string
+    private function createAdminUserInDatabase(string $email, string $plainPassword = 'admin123'): string
     {
         $email = $email ?? 'admin_' . uniqid() . '@example.com';
 
@@ -43,7 +43,7 @@ class UserAuthTest extends ApiTestCase
         if (method_exists($role, 'setLabel')) {
             $role->setLabel('ROLE_ADMIN');
         } elseif (method_exists($role, 'setName')) {
-            $role->setName('ROLE_ADMIN');
+            $role->setLabel('ROLE_ADMIN');
         }
         $this->em->persist($role);
 
@@ -57,17 +57,12 @@ class UserAuthTest extends ApiTestCase
         }
         if (method_exists($user, 'setEmail')) {
             $user->setEmail($email);
-        } else {
-            // fallback (rare) : assignation directe si pas de setter
-            $user->email = $email;
-        }
+        } 
 
         // Hasher le mot de passe
         $hashed = $this->passwordHasher->hashPassword($user, $plainPassword);
         if (method_exists($user, 'setPassword')) {
             $user->setPassword($hashed);
-        } else {
-            $user->password = $hashed;
         }
 
         // Assigner la relation Role -> User
@@ -77,10 +72,10 @@ class UserAuthTest extends ApiTestCase
         } else {
             // Si la relation est ManyToMany et que la méthode d'ajout est addRole
             if (method_exists($user, 'addRole')) {
-                $user->addRole($role);
+                $user->setRole($role);
             } elseif (method_exists($user, 'setRoles')) {
                 // si setRoles attend un tableau de Role ou de string, essayons Role
-                $user->setRoles([$role]);
+                $user->setRole($role);
             }
         }
 
