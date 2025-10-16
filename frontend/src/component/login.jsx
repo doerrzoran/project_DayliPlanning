@@ -1,45 +1,50 @@
 import { useState } from "react";
 import { apiStore } from "../store";
+import GetUser from "./GetUser";
+import { useNavigate } from "react-router";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const setConnectionStatus = apiStore((state) => state.setConnectionStatus);
   const getTokenUrl = apiStore((state) => state.getTokenUrl);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    try {
-      const response = await fetch(getTokenUrl(), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email, password }),
-      });
+  try {
+    const response = await fetch(getTokenUrl(), {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email, password }),
+    });
 
-      if (!response.ok) {
-        throw new Error("Erreur de connexion");
-      }
+    if (!response.ok) {
+      throw new Error("Erreur de connexion");
+    }
 
-      const data = await response.json();
-      console.log("Token reçu :", data.token);
+    const data = await response.json();
+    console.log("Token reçu :", data.token);
 
-      // 🔐 Enregistrer le token dans localStorage
-      localStorage.setItem("authToken", data.token);
+    localStorage.setItem("authToken", data.token);
 
-      // 🟢 Mettre à jour Zustand
-      setConnectionStatus(true, "Connexion réussie !");
-    } catch (error) {
-      console.error(error);
-      setConnectionStatus(false, "Identifiants incorrects");
-    }
-  };
+    setConnectionStatus(true, "Connexion réussie !");
+
+    navigate("/calendar"); 
+      } catch (error) {
+        console.error(error);
+        setConnectionStatus(false, "Identifiants incorrects");
+      }
+    };
+
 
   return (
     <div style={{ maxWidth: "400px", margin: "2rem auto" }}>
-      <h2>Connexion</h2>
+      <h2 id="connexion">Connexion</h2>
+      <GetUser/>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "1rem" }}>
           <label>Email :</label>

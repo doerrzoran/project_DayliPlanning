@@ -1,7 +1,7 @@
 import './App.css'
 import {  useMemo } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import TestApi from './component/TestApi'
+import Layout from './component/Layout';
 import Calendar from './component/calendar'; 
 import Login from './component/login';
 
@@ -14,8 +14,8 @@ function App() {
       },
       {
         path: '/calendar',
-        element: <Calendar></Calendar>
-      }
+        element:  <Layout content = {<Calendar/>} />
+      },
     ])
   })
   return (

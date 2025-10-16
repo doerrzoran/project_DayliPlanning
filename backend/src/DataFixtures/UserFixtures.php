@@ -11,6 +11,8 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture implements OrderedFixtureInterface
 {
+    
+
     private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(UserPasswordHasherInterface $passwordHasher)
@@ -78,7 +80,9 @@ class UserFixtures extends Fixture implements OrderedFixtureInterface
         $employeHalfTimeUser->setPassword($hashedPassword);
         $manager->persist($employeHalfTimeUser);
 
+        $this->addReference('user_employe', $employeUser);
         $manager->flush();
+
     }
 
     public function getOrder(): int
