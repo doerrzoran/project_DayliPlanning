@@ -14,5 +14,13 @@ export const apiStore = create((set) => ({
   // Méthode pour obtenir l'URL complète de récupération du token
   getTokenUrl: () => {
     return `${apiStore.getState().apiUrl}/login_check`;
+  },
+  getMe: () => {
+    return `${apiStore.getState().apiUrl}/me`;
   }
+}));
+
+export const userStore = create((set) => ({
+  user: null,
+  setUser: (userData) => set({ user: userData }),
 }));
