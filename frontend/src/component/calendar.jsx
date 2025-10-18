@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { userStore } from "../store";
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -6,59 +7,12 @@ import WeeklyPlanning from './WeeklyPlanning';
 import MonthlyPlanning from './MonthlyPlanning';
 import YearlyPlanning from './YearlyPlanning';
 import { getMondayFromDate } from '../Utils/dateUtils';
+import { useStore } from 'zustand';
+import { useFormattedPeriods } from '../Utils/UseFormatedPeriods';
 
 export default function Calendar() {
-
-  const exempleData = [
-    {
-      date: '29/09/2025', 
-      start: '9:00',
-      end: '12:30',
-      type: 'presence'
-    },
-    {
-      date: '29/09/2025', 
-      start: '13:00',
-      end: '17:30',
-      type: 'presence'
-    },
-    {
-      date: '30/09/2025', 
-      start: '9:00',
-      end: '12:30',
-      type: 'presence'
-    },
-    {
-      date: '30/09/2025', 
-      start: '13:00',
-      end: '17:30',
-      type: 'presence'
-    },
-    {
-      date: '01/10/2025', 
-      start: '9:00',
-      end: '12:30',
-      type: 'absence: congé maladie'
-    },
-    {
-      date: '01/10/2025', 
-      start: '13:00',
-      end: '17:30',
-      type: 'absence: congé maladie'
-    },
-    {
-      date: '02/10/2025', 
-      start: '9:00',
-      end: '12:30',
-      type: 'presence'
-    },
-    {
-      date: '02/10/2025', 
-      start: '13:00',
-      end: '17:30',
-      type: 'absence: formation'
-    },
-  ];
+  const user = useStore(userStore, (state) => state.user);
+   const exempleData = useFormattedPeriods(user);
 
   const now = new Date();
 
