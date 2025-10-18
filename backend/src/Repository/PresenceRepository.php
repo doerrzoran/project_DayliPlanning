@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Presence;
+use App\Entity\User;
+use App\Entity\HalfDay;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -16,28 +18,40 @@ class PresenceRepository extends ServiceEntityRepository
         parent::__construct($registry, Presence::class);
     }
 
-//    /**
-//     * @return Presence[] Returns an array of Presence objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('p.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * Retourne une présence "ouverte" (depature IS NULL) pour un employé,
+     * sur la même date (champ DATE) et la même demi-journée.
+     *
+     * @param User $user
+     * @param \DateTimeInterface $date  Date (heure ignorée)
+     * @param HalfDay $halfDay
+     * @return Presence|null
+     */
+    public function findOpenForUserByDateAndHalfDay(User $user, \DateTimeInterface $date, HalfDay $halfDay): ?Presence
+{
+    // Construire le range couvrant toute la journée
+    $start = \DateTime::createFromFormat('Y-m-d H:i:s', $date->format('Y-m-d') . ' 00:00:00');
+    $end   = \DateTime::createFromFormat('Y-m-d H:i:s', $date->format('Y-m-d') . ' 23:59:59');
 
-//    public function findOneBySomeField($value): ?Presence
-//    {
-//        return $this->createQueryBuilder('p')
-//            ->andWhere('p.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    $dql = '
+        SELECT p
+        FROM App\Entity\Presence p
+        WHERE p.employe = :user
+          AND p.halfDay = :halfDay
+          AND p.depature IS NULL
+          AND p.date BETWEEN :start AND :end
+    ';
+
+    $query = $this->getEntityManager()->createQuery($dql)
+        ->setParameter('user', $user)
+        ->setParameter('halfDay', $halfDay)
+        ->setParameter('start', $start)
+        ->setParameter('end', $end)
+        ->setMaxResults(1);
+
+    return $query->getOneOrNullResult();
+}
+
+
+    // ... autres méthodes du repository ...
 }

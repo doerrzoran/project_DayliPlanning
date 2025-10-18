@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -59,6 +60,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var Collection<int, Presence>
      */
     #[ORM\OneToMany(targetEntity: Presence::class, mappedBy: 'employe')]
+    #[Groups(['user:read'])]
     private Collection $presences;
 
     /**
