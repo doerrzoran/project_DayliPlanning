@@ -20,7 +20,7 @@ class HalfDayFixture extends Fixture
             $this->addReference("{$jour}_matin", $morning);
 
             $afternoon = (new HalfDay)
-                ->setLabel("$jour après-midi")
+                ->setLabel("$jour apres-midi")
                 ->setHalfDayStart(new \DateTime('13:30'))
                 ->setHalfDayEnd(new \DateTime('17:30'));
             $manager->persist($afternoon);
