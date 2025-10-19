@@ -14,6 +14,11 @@ export default function Calendar() {
   const user = useStore(userStore, (state) => state.user);
    const exempleData = useFormattedPeriods(user);
 
+  useEffect(() => {
+    console.log(exempleData)
+  }, [exempleData])
+
+
   const now = new Date();
 
   // 'week' | 'month' | 'year'

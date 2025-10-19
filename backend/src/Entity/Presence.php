@@ -2,11 +2,17 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\PresenceRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: PresenceRepository::class)]
+#[ApiResource(
+    normalizationContext: ['groups' => ['presence:read']],
+    denormalizationContext: ['groups' => ['presence:write']]
+)]
 class Presence
 {
     #[ORM\Id]
@@ -21,6 +27,7 @@ class Presence
     private ?\DateTime $arrival = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
+    #[Groups(['presence:read','presence:write'])]
     private ?\DateTime $depature = null;
 
     #[ORM\ManyToOne]
@@ -29,6 +36,7 @@ class Presence
 
     #[ORM\ManyToOne(inversedBy: 'presences')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['presence:read','presence:write'])]
     private ?User $employe = null;
 
     public function getId(): ?int

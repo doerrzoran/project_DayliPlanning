@@ -29,6 +29,8 @@ export default function GetUser() {
         }
 
         const data = await response.json();
+
+
         setUser(data);
 
         // Stocker dans Zustand userStore
@@ -50,7 +52,7 @@ export default function GetUser() {
 
   return (
     <div>     
-      <p>Email: {email}</p>
+      <p>Email: {user.email}</p>
     </div>
   );
 }
