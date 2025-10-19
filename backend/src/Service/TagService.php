@@ -36,7 +36,7 @@ class TagService
      *
      * @return Presence|null la présence créée / modifiée ou null en cas d'erreur
      */
-    public function tag(User $user): ?Presence
+    public function tag(User $user): string
     {
         // Maintenant (DateTimeImmutable) fourni par le Clock (Symfony)
         $now = $this->clock->now();
@@ -49,11 +49,13 @@ class TagService
 
         if ($openPresence) {
             // on complète (exit badge)
-            return $this->exitTag($openPresence, $now);
+            $this->exitTag($openPresence, $now);
+            return "absent";
         }
 
         // sinon on crée une nouvelle présence (entry badge)
-        return $this->entryTag($user, $now, $halfDay);
+        $this->entryTag($user, $now, $halfDay);
+        return "present";
     }
 
     /**
@@ -72,7 +74,7 @@ class TagService
 
         // Requête simple via repository : chercher presence pour cet employé, date (Y-m-d), halfDay et depature IS NULL
         // On suppose que PresenceRepository existe et on utilise QueryBuilder au besoin.
-        return $this->presenceRepository->findOpenForUserByDateAndHalfDay($user, $date, $halfDay);
+        return $this->presenceRepository->findOpenForUserByDateAndHalfDay($user, $dayStart, $halfDay);
     }
     /**
      * Crée et persiste une nouvelle présence (arrivée).

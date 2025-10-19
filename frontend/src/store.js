@@ -17,10 +17,15 @@ export const apiStore = create((set) => ({
   },
   getMe: () => {
     return `${apiStore.getState().apiUrl}/me`;
+  },
+  getTag: () => {
+    return `${apiStore.getState().apiUrl}/tag`;
   }
 }));
 
 export const userStore = create((set) => ({
   user: null,
   setUser: (userData) => set({ user: userData }),
+  statut:'absent',
+  setStatut: (statutData) => set({statut: statutData})
 }));

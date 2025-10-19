@@ -1,0 +1,58 @@
+/* Tag.css */
+
+.tag-container {
+  display: block;
+  justify-content: center; /* centre horizontalement */
+  align-items: center;    /* centre verticalement */
+  height: 100vh;          /* prend toute la hauteur de la fenêtre */
+  background-color: #f5f7fa; /* fond clair et neutre */
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.badger-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.badger-button:hover:not(:disabled) {
+  background-color: #0056b3;
+  box-shadow: 0 8px 16px rgba(0, 86, 179, 0.4);
+}
+
+.badger-button:disabled {
+  background-color: #a3c2f2;
+  cursor: not-allowed;
+  box-shadow: none;
+  color: #e1e7f6;
+}
+/* Ajout dans Tag.css */
+
+.statut-text {
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.statut-absent {
+  color: #d9534f; /* rouge vif style bootstrap danger */
+}
+
+.statut-present {
+  color: #5cb85c; /* vert style bootstrap success */
+}
+
+.statut-container {
+  margin-bottom: 20px; /* espace entre le statut et le bouton */
+}
+

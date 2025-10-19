@@ -4,6 +4,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router';
 import Layout from './component/Layout';
 import Calendar from './component/calendar'; 
 import Login from './component/login';
+import Tag from './component/Tag ';
 
 function App() {
   const router = useMemo(() => {
@@ -11,7 +12,11 @@ function App() {
     return createBrowserRouter([
       {
         path: '/',
-        element: <Navigate to="/calendar" replace /> // redirige par défaut vers /calendar
+        element: <Tag to="/calendar" replace /> // redirige par défaut vers /calendar
+      },
+      {
+        path: '/',
+        element: <Navigate to="/calendar" /> // redirige par défaut vers /calendar
       },
       {
         path: '/login',

@@ -21,10 +21,10 @@ final class TagController extends AbstractController
     public function index(): JsonResponse
     {
         $user = $this->getUser();
-        $tag = $this->tagService->entryTag($user);
+        $tag = $this->tagService->tag($user);
 
         return $this->json([
-            'presenc' => $tag,
+            'statut' => $tag,
         ]);
     }
 }
