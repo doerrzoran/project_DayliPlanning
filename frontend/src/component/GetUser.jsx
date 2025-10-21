@@ -36,7 +36,6 @@ export default function GetUser() {
 
         setUser(data);
 
-        // Stocker dans Zustand userStore
         setUserStore(data);
 
         apiStore.getState().setConnectionStatus(true, "Connected to API");

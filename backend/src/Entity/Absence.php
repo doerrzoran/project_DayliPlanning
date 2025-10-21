@@ -29,6 +29,9 @@ class Absence
     #[ORM\JoinColumn(nullable: false)]
     private ?halfDay $halfDay = null;
 
+    #[ORM\Column]
+    private ?bool $isAccepted = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -78,6 +81,18 @@ class Absence
     public function setHalfDay(?halfDay $halfDay): static
     {
         $this->halfDay = $halfDay;
+
+        return $this;
+    }
+
+    public function isAccepted(): ?bool
+    {
+        return $this->isAccepted;
+    }
+
+    public function setIsAccepted(bool $isAccepted): static
+    {
+        $this->isAccepted = $isAccepted;
 
         return $this;
     }
