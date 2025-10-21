@@ -30,8 +30,8 @@ class AbsenceRequestService
 
     public function newRequest($user, $absenceType, $dateDebut, $timeUniqDay = null, $dateFin = null): string
     {
-        
 
+        try {
             $halfDayArray = [];
             if(!$dateFin && $timeUniqDay){
                 $halfDayArray = $this->singleDayAbsence($dateDebut, $timeUniqDay);
@@ -40,11 +40,9 @@ class AbsenceRequestService
             }
     
             $this->newHalfDays($halfDayArray, $absenceType, $user);
-
-        // try {
-        // }catch(\Exception $e){
-        //     return 'echec de l\'enregistrement';
-        // }
+        }catch(\Exception $e){
+            return 'echec de l\'enregistrement';
+        }
           
         return 'enregistrement effectué';
     }
