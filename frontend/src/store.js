@@ -21,6 +21,12 @@ export const apiStore = create((set) => ({
   },
   getTag: () => {
     return `${apiStore.getState().apiUrl}/tag`;
+  },
+  getTypeAbsences: () => {
+    return `${apiStore.getState().apiUrl}/absence_types`;
+  },
+  postAbsenceRequest : () => {
+    return `${apiStore.getState().apiUrl}/absence/request`;
   }
 }));
 

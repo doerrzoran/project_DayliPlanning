@@ -50,7 +50,7 @@ export default function Nav() {
                 </li>
                 
                 <li className="nav-item">
-                <a href="#" className="nav-link active">
+                <a href="/demande/absence" className="nav-link active">
                     <span className="nav-icon">📝</span>
                     <span className="nav-label">demande d'absence</span>
                 </a>
