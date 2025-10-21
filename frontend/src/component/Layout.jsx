@@ -1,4 +1,5 @@
 import Header from "./header"
+import Nav from "./nav"
 
 
 export default function Layout(props) {
@@ -7,6 +8,7 @@ export default function Layout(props) {
         <>
             <Header/>
             <main>
+                <Nav/>
                 {
                     content
                 }

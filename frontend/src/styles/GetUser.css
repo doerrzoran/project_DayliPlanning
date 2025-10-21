@@ -1,0 +1,12 @@
+#user {
+    color:#553931 ;
+    /* font-size: 1.2rem; */
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#userIcon{
+    size:2rem;
+}

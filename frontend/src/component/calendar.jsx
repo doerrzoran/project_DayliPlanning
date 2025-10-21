@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { userStore } from "../store";
+import '../styles/calendar-button.css'
 
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
@@ -27,8 +28,8 @@ export default function Calendar() {
   const toggleTo = (target) => setView(target);
 
   return (
-    <div style={{ padding: 12 }}>
-      <h1>Mon calendrier</h1>
+    <div id='calendar' style={{ padding: 12 }}>
+      
 
       {/* Toggle view */}
       <div style={{ marginBottom: 20, display: 'flex', gap: 8 }}>

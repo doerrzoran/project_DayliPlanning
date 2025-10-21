@@ -1,33 +1,60 @@
-.login-container .dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: white;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  z-index: 10;
-  width: 300px;
+/* Style général du formulaire de login */
+#connexion {
+  font-family: 'Roboto', sans-serif;
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
 }
 
-.login-container:hover .dropdown-content {
+/* Container du formulaire */
+div[style*="max-width: 400px"] {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Labels */
+form label {
   display: block;
-  animation: fadeIn 0.3s ease-in-out;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #555;
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* Inputs */
+form input[type="email"],
+form input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
 }
 
-.connexion-title {
+form input[type="email"]:focus,
+form input[type="password"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Bouton de connexion */
+form button[type="submit"] {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  user-select: none;
+  transition: background-color 0.2s;
+  margin-top: 1rem;
+}
+
+form button[type="submit"]:hover {
+  background-color: #0056b3;
 }

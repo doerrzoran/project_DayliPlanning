@@ -5,7 +5,7 @@
   justify-content: center; /* centre horizontalement */
   align-items: center;    /* centre verticalement */
   height: 100vh;          /* prend toute la hauteur de la fenêtre */
-  background-color: #f5f7fa; /* fond clair et neutre */
+  background-color: #FFFAE8; /* fond clair et neutre */
   padding: 20px;
   box-sizing: border-box;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
