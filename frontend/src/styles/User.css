@@ -1,0 +1,16 @@
+#user {
+    color:#553931 ;
+    
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+#userIcon{
+    font-size:3rem;
+}
+
+#userName{
+    font-size: 1.2rem;
+}

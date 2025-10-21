@@ -1,0 +1,48 @@
+/* Style général du calendrier */
+#calendar {
+  font-family: 'Roboto', sans-serif;
+  background-color: #FFFAE8;
+  padding: 12px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Container des boutons de toggle */
+#calendar > div:first-child {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Style des boutons de vue */
+#calendar button {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+#calendar button i {
+  font-size: 1.1rem;
+}
+
+#calendar button:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+
+#calendar button.active {
+  background-color: #ffc107;
+  border-color: #e0a800;
+  color: #fff;
+}
+
+#calendar button.active:hover {
+  background-color: #e0a800;
+}

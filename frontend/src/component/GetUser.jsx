@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { apiStore, userStore } from "../store";
+import '../styles/User.css';
+import { useNavigate } from "react-router";
 
 
 export default function GetUser() {
@@ -7,14 +9,15 @@ export default function GetUser() {
   const [error, setError] = useState(null);
   const setUserStore = userStore((state) => state.setUser);
   const email = userStore((state) => state.user?.email);
+  const navigate = useNavigate();
   
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("authToken");
         if (!token) {
-          setError("No token found in localStorage");
-          return;
+          localStorage.removeItem('user')
+          navigate('/')
         }
         const response = await fetch(apiStore.getState().getMe(), {
           method: "GET",
@@ -52,7 +55,10 @@ export default function GetUser() {
 
   return (
     <div>     
-      <p>Email: {user.email}</p>
+      <h2 id="user">
+          <i id="userIcon" class="bi bi-person-circle"></i>
+          <p id="userName">{user.firstname+' '+user.name}</p>
+          </h2>
     </div>
   );
 }

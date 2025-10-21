@@ -4,7 +4,7 @@ import { createBrowserRouter, Navigate, RouterProvider } from 'react-router';
 import Layout from './component/Layout';
 import Calendar from './component/calendar'; 
 import Login from './component/login';
-import Tag from './component/Tag ';
+import Tag from './component/Tag';
 
 function App() {
   const router = useMemo(() => {
@@ -12,15 +12,11 @@ function App() {
     return createBrowserRouter([
       {
         path: '/',
-        element: <Tag to="/calendar" replace /> // redirige par défaut vers /calendar
+        element: <Login to="/tag" replace /> 
       },
       {
-        path: '/',
-        element: <Navigate to="/calendar" /> // redirige par défaut vers /calendar
-      },
-      {
-        path: '/login',
-        element: <Login/>
+        path: '/tag',
+        element: <Layout content = {<Tag/>} />
       },
       {
         path: '/calendar',

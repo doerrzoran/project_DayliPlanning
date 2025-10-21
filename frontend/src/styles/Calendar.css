@@ -1,11 +1,11 @@
-/* ========================================
-   CALENDAR.CSS - Styles pour tous les composants
-   ======================================== */
 
-/* ==================== GENERAL ==================== */
+#calendar{
+  background-color: #FFFAE8;
+}
 .calendar-container {
   width: 100%;
   box-sizing: border-box;
+ 
 }
 
 /* ==================== WEEKLY PLANNING ==================== */

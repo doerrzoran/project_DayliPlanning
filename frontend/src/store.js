@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export const apiStore = create((set) => ({
   apiUrl: 'https://127.0.0.1:8000/api',
@@ -23,9 +24,16 @@ export const apiStore = create((set) => ({
   }
 }));
 
-export const userStore = create((set) => ({
-  user: null,
-  setUser: (userData) => set({ user: userData }),
-  statut:'absent',
-  setStatut: (statutData) => set({statut: statutData})
-}));
+export const userStore = create(
+  persist(
+    (set) => ({
+      user: null,
+      statut: 'absent',
+      setUser: (userData) => set({ user: userData }),
+      setStatut: (statutData) => set({ statut: statutData }),
+    }),
+    {
+      name: 'user-storage',
+    }
+  )
+);

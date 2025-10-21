@@ -2,6 +2,8 @@ import { useState } from "react";
 import { apiStore } from "../store";
 import GetUser from "./GetUser";
 import { useNavigate } from "react-router";
+import "../styles/Login.css"
+import logo from '../assets/image/logo.png'
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -27,15 +29,13 @@ export default function Login() {
     }
 
     const data = await response.json();
-    console.log("Token reçu :", data.token);
 
     localStorage.setItem("authToken", data.token);
 
     setConnectionStatus(true, "Connexion réussie !");
 
-    navigate("/calendar"); 
+    navigate("/tag"); 
       } catch (error) {
-        console.error(error);
         setConnectionStatus(false, "Identifiants incorrects");
       }
     };
@@ -44,7 +44,7 @@ export default function Login() {
   return (
     <div style={{ maxWidth: "400px", margin: "2rem auto" }}>
       <h2 id="connexion">Connexion</h2>
-      <GetUser/>
+
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: "1rem" }}>
           <label>Email :</label>
