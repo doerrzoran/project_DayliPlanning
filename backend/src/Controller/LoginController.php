@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 final class LoginController extends AbstractController
@@ -24,7 +23,7 @@ final class LoginController extends AbstractController
     'firstname' => $user->getFirstname(),
     'email' => $user->getEmail(),
     'contractWeeklyHours' => $user->getContractWeeklyHours(),
-    'contractStart' => $user->getContratStart()?->format('Y-m-d'),  // Assurez-vous que la méthode s’appelle bien ainsi
+    'contractStart' => $user->getContratStart()?->format('Y-m-d'),  
     'contractEnd' => $user->getContractEnd()?->format('Y-m-d'),
     'role' => $user->getRole()?->getLabel(),
     'manager' => $user->getManager() ? [
@@ -48,21 +47,21 @@ final class LoginController extends AbstractController
                 'arrival' => $presence->getArrival()?->format('H:i:s'),
                 'depature' => $presence->getDepature()?->format('H:i:s'),
                 'halfDayLabel' => $presence->getHalfDay()?->getLabel(),
-                // 'status' if it exists on the entity, otherwise remove
+            
             ],
             $user->getPresences()->toArray()
         ),
         'absences' => array_map(
             fn($absence) => [
                 
-                'dateStart' => $absence->getDateStart()?->format('Y-m-d'),
-                'dateEnd' => $absence->getDateEnd()?->format('Y-m-d'),
-                'reason' => $absence->getReason(),
+                'dateStart' => $absence->getHalfDay()->getHalfDayStart()?->format('Y-m-d'),
+                'dateEnd' => $absence->getHalfDay()->getHalfDayEnd()?->format('Y-m-d'),
+                'reason' => $absence->getAbsenceType(),
             ],
             $user->getAbsences()->toArray()
         ),
     ],
-    'roles' => $user->getRoles(),  // tableau de chaînes
+    'roles' => $user->getRoles(),  
 ]);
 
     }

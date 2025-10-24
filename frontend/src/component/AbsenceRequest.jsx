@@ -9,6 +9,7 @@ export default function AbsenceRequest() {
     const [dateFin, setDateFin] = useState(null)
     const [types, setTypes] = useState([]);
     const token = localStorage.getItem("authToken");
+
     const fetchTypeAbsence = async () => {
         const response = await fetch(apiStore.getState().getTypeAbsences(), {
             method: "GET",
@@ -28,7 +29,6 @@ export default function AbsenceRequest() {
     useEffect(() => {
         fetchTypeAbsence();
     }, []);
-
 
     const absenceRequest = async (e) => {
         const requestData = {
@@ -79,7 +79,6 @@ export default function AbsenceRequest() {
             onChange={(e) => setDateDebut(e.target.value)}
         />
 
-        {/* 🕐 Demi-journée : désactivée si dateFin renseignée */}
         <div style={{ opacity: disableHalfDay ? 0.5 : 1 }}>
             <label htmlFor="morning">Matinée</label>
             <input
@@ -102,7 +101,7 @@ export default function AbsenceRequest() {
             />
         </div>
 
-        <label htmlFor="dateFin">Sélectionnez une date de fin (optionnelle)</label>
+        <label htmlFor="dateFin">Sélectionnez une date de fin </label>
         <input
             type="date"
             name="dateFin"

@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Repository\HalfDayRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,7 +25,7 @@ class HalfDay
     public const SUNDAY_MORNING = 'dimanche matin';
     public const SUNDAY_AFTERNOON = 'dimanche apres midi';
 
-    
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -41,11 +40,6 @@ class HalfDay
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTime $halfDayEnd = null;
 
-
-    public function __construct()
-    {
-        $this->employe = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {

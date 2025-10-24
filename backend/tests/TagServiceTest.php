@@ -61,7 +61,6 @@ class TagServiceTest extends TestCase
 
         $result = $this->tagService->tag($user);
 
-        // Le service retourne 'present' ou 'absent'
         $this->assertIsString($result);
         $this->assertEquals('present', $result);
     }
@@ -89,10 +88,7 @@ class TagServiceTest extends TestCase
         $this->assertIsString($result);
         $this->assertEquals('absent', $result);
 
-        // On vérifie bien que la présence a été mise à jour (heure de départ)
         $this->assertInstanceOf(Presence::class, $openPresence);
         $this->assertEquals($now->format('H:i:s'), $openPresence->getDepature()->format('H:i:s'));
     }
-
-
 }

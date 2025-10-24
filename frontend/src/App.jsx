@@ -6,6 +6,7 @@ import Calendar from './component/calendar';
 import Login from './component/login';
 import Tag from './component/Tag';
 import AbsenceRequest from './component/AbsenceRequest';
+import Team from './component/Team';
 
 function App() {
   const router = useMemo(() => {
@@ -27,6 +28,11 @@ function App() {
         path: '/demande/absence',
         element:  <Layout content = {<AbsenceRequest/>} />
       },
+      {
+        path: '/equipe',
+        element:  <Layout content = {<Team/>} />
+      },
+      
     ])
   }, [])
   return (
