@@ -26,7 +26,13 @@ class AbsenceRequestController extends AbstractController
         $timeUniqDay = $data["timeUniqDay"];
         $user = $this->getUser();
 
-        $result = $this->absenceRequestService->newRequest($user, $absenceType, $dateDebut, $timeUniqDay, $dateFin);
+        $result = $this->absenceRequestService->newRequest(
+            $user, 
+            $absenceType, 
+            $dateDebut, 
+            $timeUniqDay, 
+            $dateFin
+        );
 
         return $this->json([
             "result"=> $result,

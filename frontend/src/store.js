@@ -3,16 +3,15 @@ import { persist } from 'zustand/middleware';
 
 export const apiStore = create((set) => ({
   apiUrl: 'https://127.0.0.1:8000/api',
-  isConnected: false, // état indiquant si la connexion est établie
-  statusMessage: '',  // message optionnel
+  isConnected: false, 
+  statusMessage: '',  
 
-  // méthode pour mettre à jour l'état de connexion et message
   setConnectionStatus: (connected, message = '') => set({ 
     isConnected: connected, 
     statusMessage: message 
   }),
 
-  // Méthode pour obtenir l'URL complète de récupération du token
+
   getTokenUrl: () => {
     return `${apiStore.getState().apiUrl}/login_check`;
   },
@@ -27,6 +26,12 @@ export const apiStore = create((set) => ({
   },
   postAbsenceRequest : () => {
     return `${apiStore.getState().apiUrl}/absence/request`;
+  },
+  getTeam : () => {
+    return `${apiStore.getState().apiUrl}/team`;
+  },
+  postValidateAbsence : () => {
+    return `${apiStore.getState().apiUrl}/team/absence`;
   }
 }));
 
@@ -40,6 +45,25 @@ export const userStore = create(
     }),
     {
       name: 'user-storage',
+    }
+  )
+);
+
+export const teamStore = create(
+  persist(
+    (set) => ({
+      team: [],
+      setTeam: (teamData) => set({ team: teamData }),
+    }),
+    {
+      name: 'team-storage',
+      partialize: (state) => {
+        const user = JSON.parse(localStorage.getItem('user-storage'))?.state?.user;
+        if (user?.role === 'ROLE_CADRE') {
+          return state;
+        }
+        return {}; 
+      },
     }
   )
 );

@@ -19,8 +19,6 @@ class PresenceRepository extends ServiceEntityRepository
     }
 
     /**
-     * Retourne une présence "ouverte" (depature IS NULL) pour un employé,
-     * sur la même date (champ DATE) et la même demi-journée.
      *
      * @param User $user
      * @param \DateTimeInterface $date  Date (heure ignorée)
@@ -29,7 +27,6 @@ class PresenceRepository extends ServiceEntityRepository
      */
     public function findOpenForUserByDateAndHalfDay(User $user, \DateTimeInterface $date, HalfDay $halfDay): ?Presence
 {
-    // Construire le range couvrant toute la journée
     $start = \DateTime::createFromFormat('Y-m-d H:i:s', $date->format('Y-m-d') . ' 00:00:00');
     $end   = \DateTime::createFromFormat('Y-m-d H:i:s', $date->format('Y-m-d') . ' 23:59:59');
 
@@ -49,9 +46,7 @@ class PresenceRepository extends ServiceEntityRepository
         ->setParameter('end', $end)
         ->setMaxResults(1);
 
-    return $query->getOneOrNullResult();
-}
+        return $query->getOneOrNullResult();
+    }
 
-
-    // ... autres méthodes du repository ...
 }

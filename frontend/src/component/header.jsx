@@ -9,7 +9,7 @@ export default function Header() {
         <>
             <header>
                 <div id='logo'>
-                    <img className='logo' src={logo} alt="logo of Zilkor" />
+                    <img className='logo' src={logo} alt="logo" />
                 </div>
                 <div>
                     <GetUser/>
