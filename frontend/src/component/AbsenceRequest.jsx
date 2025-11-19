@@ -7,7 +7,9 @@ export default function AbsenceRequest() {
     const [dateDebut, setDateDebut] = useState('')
     const [timeUniqDay, setTimeUniqDay] = useState('fullday')
     const [dateFin, setDateFin] = useState(null)
+    const [message, setMessage] = useState('');
     const [types, setTypes] = useState([]);
+    
     const token = localStorage.getItem("authToken");
 
     const fetchTypeAbsence = async () => {
@@ -31,13 +33,21 @@ export default function AbsenceRequest() {
     }, []);
 
     const absenceRequest = async (e) => {
+        e.preventDefault();
+        if (!absenceType || absenceType === "null") {
+            setMessage("Veuillez sélectionner un type d'absence.");
+            return;
+        }
+        if (!dateDebut || dateDebut === "null") {
+            setMessage("Veuillez sélectionner une date de fin.");
+            return;
+        }
         const requestData = {
             absenceType,
             dateDebut,
             dateFin: dateFin || null, 
             timeUniqDay: dateFin ? null : timeUniqDay, 
         };
-        e.preventDefault()
         const response = await fetch(`${apiStore.getState().postAbsenceRequest()}`, {
             method: 'POST',
             headers: {
@@ -46,6 +56,12 @@ export default function AbsenceRequest() {
             },
             body: JSON.stringify(requestData)
         });
+        if (response.ok) {
+            const data = await response.json();
+            setMessage(data.result); 
+        } else {
+            setMessage("Erreur lors de l'enregistrement");
+        }
     }
 
     const handleChange = (e) => {
@@ -59,58 +75,62 @@ export default function AbsenceRequest() {
 
     const disableHalfDay = !!dateFin;
     return (
-        <form onSubmit={absenceRequest}>
-        <select
-            name="absenceType"
-            id="absenceType"
-            onChange={(e) => setAbsenceType(e.target.value)}
-        > 
-            {types.map((type) => (
-            <option key={type.id} value={type.id}>
-                {type.label}
-            </option>
-            ))}
-        </select>
+        <>
+            {message && <div id="message">{message}</div>}
+            <form onSubmit={absenceRequest}>
+            <select
+                name="absenceType"
+                id="absenceType"
+                onChange={(e) => setAbsenceType(e.target.value)}
+            > 
+            <option value="null">selectionner un type d'absence</option>
+                {types.map((type) => (
+                <option key={type.id} value={type.id}>
+                    {type.label}
+                </option>
+                ))}
+            </select>
 
-        <label htmlFor="dateDebut">Sélectionnez une date de début</label>
-        <input
-            type="date"
-            name="dateDebut"
-            onChange={(e) => setDateDebut(e.target.value)}
-        />
-
-        <div style={{ opacity: disableHalfDay ? 0.5 : 1 }}>
-            <label htmlFor="morning">Matinée</label>
+            <label htmlFor="dateDebut">Sélectionnez une date de début</label>
             <input
-            type="checkbox"
-            id="morning"
-            name="morning"
-            onChange={handleChange}
-            checked={timeUniqDay === "morning"}
-            disabled={disableHalfDay}
+                type="date"
+                name="dateDebut"
+                onChange={(e) => setDateDebut(e.target.value)}
             />
 
-            <label htmlFor="afternoon">Après-midi</label>
+            <div style={{ opacity: disableHalfDay ? 0.5 : 1 }}>
+                <label htmlFor="morning">Matinée</label>
+                <input
+                type="checkbox"
+                id="morning"
+                name="morning"
+                onChange={handleChange}
+                checked={timeUniqDay === "morning"}
+                disabled={disableHalfDay}
+                />
+
+                <label htmlFor="afternoon">Après-midi</label>
+                <input
+                type="checkbox"
+                id="afternoon"
+                name="afternoon"
+                onChange={handleChange}
+                checked={timeUniqDay === "afternoon"}
+                disabled={disableHalfDay}
+                />
+            </div>
+
+            <label htmlFor="dateFin">Sélectionnez une date de fin </label>
             <input
-            type="checkbox"
-            id="afternoon"
-            name="afternoon"
-            onChange={handleChange}
-            checked={timeUniqDay === "afternoon"}
-            disabled={disableHalfDay}
+                type="date"
+                name="dateFin"
+                onChange={(e) => setDateFin(e.target.value)}
             />
-        </div>
 
-        <label htmlFor="dateFin">Sélectionnez une date de fin </label>
-        <input
-            type="date"
-            name="dateFin"
-            onChange={(e) => setDateFin(e.target.value)}
-        />
-
-        <button id="absenceRequestbutton" type="submit">
-            Soumettre la demande
-        </button>
-        </form>
+            <button id="absenceRequestbutton" type="submit">
+                Soumettre la demande
+            </button>
+            </form>
+        </> 
     );
 }
